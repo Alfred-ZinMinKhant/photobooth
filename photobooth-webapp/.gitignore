@@ -1,0 +1,30 @@
+.DS_Store
+# macOS
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Production / build
+dist/
+build/
+.cache/
+.parcel-cache/
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Editors / IDEs
+.vscode/
+.idea/
+
+# Misc
+Thumbs.db
+*.swp
+*.bak
