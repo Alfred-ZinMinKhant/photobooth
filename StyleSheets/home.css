@@ -34,6 +34,9 @@ body {
 .logo {
   position: relative;
   width: 80px;
+  margin: 1rem auto;
+  display: flex;
+  justify-content: center;
 }
 
 .logo img {
@@ -62,6 +65,43 @@ body {
   align-items: center;
   overflow: hidden;
   margin-top: 2vh;
+}
+
+/* ensure overlays inside the photobooth don't block page interaction */
+.photobooth-container,
+.photobooth-container * {
+  pointer-events: none;
+}
+
+/* re-enable pointer events for page-level controls */
+.home-container .button-container,
+.home-container .button-container button,
+button {
+  pointer-events: auto;
+}
+
+/* ensure the animation container fills the photobooth frame */
+.home-animations {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* let pointer events pass through animation layer so menu buttons remain clickable */
+.home-animations,
+.home-animations .photobooth-mock,
+.home-animations .photostrip-mock,
+.home-animations .bubbles-mock,
+.home-animations .fish-mock-1,
+.home-animations .fish-mock-2,
+.home-animations .fish-mock-3 {
+  pointer-events: none;
+}
+
+/* keep the page button interactive (button is rendered by the page, but if placed inside animations allow it) */
+.home-animations .button-container,
+.home-animations .button-container button {
+  pointer-events: auto;
 }
 
 @media screen and (max-width: 768px) {
@@ -114,7 +154,7 @@ body {
   height: calc(534.4 / 574 * 100%);
   left: calc(114 / 604 * 100%);
   top: calc(20 / 574 * 100%);
-  background-image: url('../Assets/fish-photobooth/homepage/animated-photobooth-mock/1.png');
+  background-image: url('../Assets/fish-photobooth/homepage/animated-photobooth-mock/1.jpg');
   transition: opacity 0.3s ease-in-out;
   opacity: 1;
 }

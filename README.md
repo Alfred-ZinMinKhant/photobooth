@@ -12,20 +12,28 @@ An underwater-themed photobooth web application built with vanilla HTML, CSS, an
 ## Demo
 [http://photobooth.nashallery.com](http://photobooth.nashallery.com)
 
-## Getting Started
-**Important:** This app uses your camera. You cannot open the HTML file directly in a browser due to camera permissions. You need to serve it with a local server.
+## Getting Started (React / Vite)
+
+This repository has been scaffolded as a Vite + React app. The original static pages and scripts remain in `Javascripts/`, `StyleSheets/`, and `Assets/` and are loaded by the React pages.
 
 ### Requirements
-- Node.js installed (for `npx serve`)
+- Node.js and `npm` or `pnpm`.
 
 ### How to run the project locally
-1. Open a terminal in your project folder:
-   ```bash
-   cd path/to/photobooth-github-tutorial
-   npx serve
-2. Open the URL shown in the terminal (usually http://localhost:3000) in a browser.
+1. Install dependencies:
 
-3. Allow camera access when prompted.
+```bash
+cd /path/to/PhotoBooth
+npm install
+```
+
+2. Start the dev server:
+
+```bash
+npm run dev
+```
+
+3. Open the URL shown by Vite (default `http://localhost:3000`) and allow camera access when prompted.
 
 ## License
 

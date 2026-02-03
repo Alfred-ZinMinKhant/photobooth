@@ -1,0 +1,3 @@
+/* minimal resets for React app; original styles remain in StyleSheets/ */
+html,body,#root{height:100%;}
+body{margin:0;font-family: sans-serif;background:#f5f4f0}
