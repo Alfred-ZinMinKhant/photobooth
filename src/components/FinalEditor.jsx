@@ -5,6 +5,15 @@ export default function FinalEditor({ navigate }) {
   const canvasRef = useRef(null)
   const [stickers, setStickers] = useState([])
   const [baseImage, setBaseImage] = useState(null)
+  const [frames] = useState([
+    { id: 'none', label: 'None', src: '' },
+    // contentRect values are relative fractions {x, y, width, height} of the canvas
+    { id: 'frame-a', label: 'Blue Frame', src: '/Assets/fish-photobooth/finalpage/frames/frame-a.png', contentRect: { x: 0.06, y: 0.08, width: 0.88, height: 0.84 } },
+    { id: 'frame-b', label: 'Polaroid', src: '/Assets/fish-photobooth/finalpage/frames/frame-b.png', contentRect: { x: 0.08, y: 0.12, width: 0.84, height: 0.74 } },
+    { id: 'frame-c', label: 'Rounded', src: '/Assets/fish-photobooth/finalpage/frames/frame-c.png', contentRect: { x: 0.04, y: 0.06, width: 0.92, height: 0.88 } }
+  ])
+  const [selectedFrameId, setSelectedFrameId] = useState('none')
+  const [selectedFrameImage, setSelectedFrameImage] = useState(null)
   const [dragging, setDragging] = useState(null)
   const [pointer, setPointer] = useState({ x: 0, y: 0 })
 
@@ -25,11 +34,28 @@ export default function FinalEditor({ navigate }) {
     if (!ctx) return
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-      if (baseImage) ctx.drawImage(baseImage, 0, 0, canvas.width, canvas.height)
+      if (baseImage) {
+        // fit baseImage into frame contentRect if defined for selected frame
+        const frameMeta = frames.find(ff => ff.id === selectedFrameId)
+        if (frameMeta && frameMeta.contentRect) {
+          const r = frameMeta.contentRect
+          const rectPx = { x: Math.round(r.x * canvas.width), y: Math.round(r.y * canvas.height), width: Math.round(r.width * canvas.width), height: Math.round(r.height * canvas.height) }
+          const scale = Math.min(rectPx.width / baseImage.width, rectPx.height / baseImage.height)
+          const drawW = Math.round(baseImage.width * scale)
+          const drawH = Math.round(baseImage.height * scale)
+          const drawX = rectPx.x + Math.round((rectPx.width - drawW) / 2)
+          const drawY = rectPx.y + Math.round((rectPx.height - drawH) / 2)
+          ctx.drawImage(baseImage, drawX, drawY, drawW, drawH)
+        } else {
+          ctx.drawImage(baseImage, 0, 0, canvas.width, canvas.height)
+        }
+      }
       stickers.forEach(s => ctx.drawImage(s.img, s.x, s.y, s.width, s.height))
+      // draw selected frame on top (applies immediately when selected)
+      if (selectedFrameImage) ctx.drawImage(selectedFrameImage, 0, 0, canvas.width, canvas.height)
     }
     draw()
-  }, [baseImage, stickers])
+  }, [baseImage, stickers, selectedFrameImage])
 
   const addSticker = src => {
     const img = new Image()
@@ -38,6 +64,27 @@ export default function FinalEditor({ navigate }) {
       setStickers(prev => [...prev, { img, x: canvasRef.current.width / 2 - img.width / 6, y: canvasRef.current.height / 2 - img.height / 6, width: img.width / 2.5, height: img.height / 2.5 }])
     }
   }
+
+  // load frame image when selection changes
+  useEffect(() => {
+    if (!selectedFrameId || selectedFrameId === 'none') { setSelectedFrameImage(null); return }
+    const f = frames.find(ff => ff.id === selectedFrameId)
+    if (!f || !f.src) { setSelectedFrameImage(null); return }
+    const img = new Image()
+    img.src = f.src
+    img.onload = () => setSelectedFrameImage(img)
+    img.onerror = () => setSelectedFrameImage(null)
+  }, [selectedFrameId, frames])
+
+  // persist selected frame and options
+  useEffect(() => {
+    try { localStorage.setItem('selectedFrameId', selectedFrameId) } catch (e) {}
+  }, [selectedFrameId])
+
+  // restore selected frame from localStorage on mount
+  useEffect(() => {
+    try { const saved = localStorage.getItem('selectedFrameId'); if (saved) setSelectedFrameId(saved) } catch (e) {}
+  }, [])
 
   const getPointer = e => {
     const canvas = canvasRef.current
@@ -93,6 +140,17 @@ export default function FinalEditor({ navigate }) {
             <button className="sticker-btn bubble-btn" aria-label="Add Bubble" onClick={() => addSticker('/Assets/fish-photobooth/camerapage/stickers/bubble1.png')}>Add Bubble</button>
             <button className="sticker-btn reset-btn" aria-label="Reset" onClick={() => setStickers([])}>Reset</button>
           </div>
+            <div style={{marginTop:12}}>
+              <h2 style={{margin:'8px 0 6px'}}>Choose Frame</h2>
+              <div className="frame-picker" style={{display:'flex', gap:8, alignItems:'center', overflowX:'auto'}}>
+                {frames.map(f => (
+                  <button key={f.id} className={"frame-thumb " + (selectedFrameId===f.id ? 'selected' : '')} type="button" onClick={() => setSelectedFrameId(f.id)} title={f.label}>
+                    {f.src ? <img src={f.src} alt={f.label} style={{height:64, display:'block'}}/> : <div style={{width:96,height:64,display:'flex',alignItems:'center',justifyContent:'center',background:'#fff',border:'1px solid #ccc'}}>None</div>}
+                  </button>
+                ))}
+              </div>
+              
+            </div>
         </div>
       </div>
 
