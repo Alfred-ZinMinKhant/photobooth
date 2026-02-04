@@ -172,3 +172,54 @@ button:hover {
   background-position: center;
   margin: 0;
 }
+
+/* Frame picker (FinalEditor) */
+.frame-heading {
+  margin: 8px 0 6px;
+  font-size: 1rem;
+}
+
+.frame-picker {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  overflow-x: auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 6px 0;
+}
+
+.frame-thumb {
+  border: 1px solid transparent;
+  padding: 4px;
+  background: transparent;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.frame-thumb img {
+  height: clamp(48px, 8vw, 64px);
+  display: block;
+}
+
+.frame-thumb.selected {
+  border-color: #333;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.frame-none {
+  width: 96px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+@media (max-width: 600px) {
+  .frame-picker { gap: 6px; }
+  .frame-thumb img { height: clamp(40px, 18vw, 56px); }
+}

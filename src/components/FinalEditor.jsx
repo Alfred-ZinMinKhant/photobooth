@@ -141,14 +141,14 @@ export default function FinalEditor({ navigate }) {
             <button className="sticker-btn reset-btn" aria-label="Reset" onClick={() => setStickers([])}>Reset</button>
           </div>
             <div style={{marginTop:12}}>
-              <h2 style={{margin:'8px 0 6px'}}>Choose Frame</h2>
-              <div className="frame-picker" style={{display:'flex', gap:8, alignItems:'center', overflowX:'auto'}}>
-                {frames.map(f => (
-                  <button key={f.id} className={"frame-thumb " + (selectedFrameId===f.id ? 'selected' : '')} type="button" onClick={() => setSelectedFrameId(f.id)} title={f.label}>
-                    {f.src ? <img src={f.src} alt={f.label} style={{height:64, display:'block'}}/> : <div style={{width:96,height:64,display:'flex',alignItems:'center',justifyContent:'center',background:'#fff',border:'1px solid #ccc'}}>None</div>}
-                  </button>
-                ))}
-              </div>
+                <h2 className="frame-heading">Choose Frame</h2>
+                <div className="frame-picker">
+                  {frames.map(f => (
+                    <button key={f.id} className={"frame-thumb " + (selectedFrameId===f.id ? 'selected' : '')} type="button" onClick={() => setSelectedFrameId(f.id)} title={f.label}>
+                      {f.src ? <img src={f.src} alt={f.label} /> : <div className="frame-none">None</div>}
+                    </button>
+                  ))}
+                </div>
               
             </div>
         </div>
