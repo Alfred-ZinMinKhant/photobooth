@@ -24,7 +24,7 @@ export default function Bubbles({ interval = 800, containerRef: externalRef = nu
       bubble.src = bubbleImages[Math.floor(Math.random() * bubbleImages.length)]
       bubble.classList.add('bubble')
       bubble.style.position = 'absolute'
-      bubble.style.left = Math.random() * 100 + 'vw'
+      bubble.style.left = Math.random() * 100 + '%'
       const size = 20 + Math.random() * 20
       bubble.style.width = size + 'px'
       const duration = 12 + Math.random() * 8

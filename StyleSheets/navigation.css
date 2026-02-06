@@ -1,0 +1,212 @@
+/* Navigation Bar Styles */
+.navigation-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(245, 244, 240, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  height: 70px; /* Fixed height for consistency */
+}
+
+.nav-left, .nav-right {
+  display: flex;
+  align-items: center;
+  min-width: 80px; /* Ensure space for buttons/logo */
+  flex: 1;
+}
+
+.nav-right {
+  justify-content: flex-end;
+}
+
+.mute-toggle {
+  background: #2a4a53; /* Dark background to make icon pop */
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white; /* White icon for high contrast */
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 12px rgba(42, 74, 83, 0.25);
+  position: relative;
+  z-index: 1001;
+}
+
+.mute-icon {
+  font-size: 22px;
+  line-height: 1;
+  display: block;
+  user-select: none;
+}
+
+.mute-toggle:hover {
+  transform: scale(1.15) rotate(15deg);
+  box-shadow: 0 6px 20px rgba(42, 74, 83, 0.4);
+  background: white;
+  color: #2a4a53;
+  border-color: #2a4a53;
+}
+
+.mute-toggle:active {
+  transform: scale(0.95);
+}
+
+.mute-toggle:active {
+  transform: scale(0.95);
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #fff;
+  border: 1px solid #1e1e1e;
+  border-radius: 0.5rem;
+  font-family: Castoro, serif;
+  font-size: 1rem;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  transform: translateX(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.back-button svg {
+  font-size: 1.2rem;
+}
+
+/* Progress Indicator */
+.progress-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 400px;
+  flex-shrink: 0;
+}
+
+.progress-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.progress-step {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.step-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Castoro, serif;
+  font-size: 0.875rem;
+  color: #999;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.progress-step.active .step-circle {
+  border-color: #2a4a53;
+  background: #2a4a53;
+  color: #fff;
+}
+
+.progress-step.current .step-circle {
+  box-shadow: 0 0 0 4px rgba(42, 74, 83, 0.2);
+  transform: scale(1.1);
+}
+
+.step-line {
+  width: 60px;
+  height: 2px;
+  background: #ddd;
+  transition: all 0.3s ease;
+}
+
+.progress-step.active .step-line {
+  background: #2a4a53;
+}
+
+.progress-label {
+  font-family: Castoro, serif;
+  font-size: 0.875rem;
+  color: #555;
+  font-weight: 500;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .navigation-bar {
+    padding: 0.5rem 1rem;
+  }
+
+  .back-button span {
+    display: none;
+  }
+
+  .back-button {
+    padding: 0.5rem;
+    min-width: 40px;
+    justify-content: center;
+  }
+
+  .progress-indicator {
+    max-width: 180px;
+  }
+
+  .step-circle {
+    width: 20px;
+    height: 20px;
+    font-size: 0.7rem;
+  }
+
+  .step-line {
+    width: 25px;
+  }
+
+  .progress-label {
+    font-size: 0.7rem;
+  }
+
+  .mute-toggle {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+}
+
+/* Add padding to body to account for fixed nav */
+body {
+  padding-top: 80px;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 70px;
+  }
+}

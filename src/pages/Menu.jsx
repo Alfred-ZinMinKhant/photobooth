@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 // HomeAnimations not used on this page; navigation handled by buttons below
-import Logo from '../components/Logo'
 import '../../StyleSheets/home.css'
 
 export default function Menu(){
@@ -18,7 +17,6 @@ export default function Menu(){
 
   return (
     <div>
-      <Logo />
 
       <div className="menu-container">
         <div className="menu-buttons">

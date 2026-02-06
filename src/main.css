@@ -1,5 +1,19 @@
-/* minimal resets for React app; original styles remain in StyleSheets/ */
-html,body,#root{height:100%;}
-/* increase base font size so rems scale larger for better readability */
-html { font-size: 112.5%; } /* 18px on default 16px browsers */
-body{margin:0;font-family: sans-serif;background:#f5f4f0}
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+html {
+  font-size: 112.5%;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #f5f4f0;
+  overflow-x: hidden;
+  width: 100%;
+}
